@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <form id="form-cars" onsubmit="event.preventDefault(), getFullResponse()" action="/question.js">
+        <div class="container mt-5">
+            <div class="md-4">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="amountQuestion">Cantidad de Preguntas</label>
+                        <select class="form-control" id="amountQuestion">
+                      <option>10</option>
+                      <option>20</option>
+                      <option>30</option>
+                      <option>40</option>
+                      <option>50</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="md-4">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select class="form-control" id="category-container">
+
+
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="md-4">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="dificult">Dificultad</label>
+                        <select class="form-control" id="dificult">
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="md-4">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="type">Tipo</label>
+                        <select class="form-control" id="type">
+                        <option value="multiple">Multiple Choice</option>
+                        <option value="boolean">True/False</option>
+
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Prueba</button>
+            <div class="row" id="questions-container">
+
+            </div>
+
+        </div>
+    </form>
+
+</body>
+<script src="index.js"></script>
+
+</html>
