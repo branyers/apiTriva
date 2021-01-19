@@ -52,7 +52,7 @@ function getAnswer(element, index) {
 
             html += `
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}'>
+                <input required class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}'>
                 <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
             </div>`
         }
@@ -62,7 +62,7 @@ function getAnswer(element, index) {
 
             html += `
                 <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}' >
+                     <input required class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}' >
                     <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
                 </div>`
         }
@@ -77,18 +77,11 @@ function getAnswer(element, index) {
 function validateInputsradio() {
     let flat = false;
     let radioButtons = document.querySelectorAll('input');
-    let SeletectedAnswer = []
+    let radio = radioButtons.getAttribute("required");
 
-    radioButtons.forEach((input) => {
-        if (input.checked) {
-            SeletectedAnswer.push(input.value)
-        }
-    })
-
-    if (SeletectedAnswer.length == correctAnswer.length) {
+    if (radio) {
         flat = true
     }
-
 
     return flat
 }
