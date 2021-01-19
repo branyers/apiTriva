@@ -1,0 +1,25 @@
+.margin {
+    margin: 10px;
+}
+
+.padding {
+    padding: 5px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.bottom-style {
+    display: inline-block;
+    margin: 70px;
+    margin-top: 20px;
+}
+
+.filter-question {
+    padding: 20px;
+}
+
+.margin-left-buttom {
+    margin-left: 80px;
+}

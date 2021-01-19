@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
     <form id="form-cars" onsubmit="event.preventDefault(), getFullResponse()" action="/question.js">
-        <div class="container mt-5">
-            <div class="md-4">
+        <div class="container mt-5 ">
+            <div class="md-4 justify-content-md-center align-items-center">
                 <div class="row">
                     <div class="form-group">
                         <label for="amountQuestion">Cantidad de Preguntas</label>
@@ -32,7 +33,7 @@
                     <div class="form-group">
                         <label for="category">Categoria</label>
                         <select class="form-control" id="category-container">
-
+                            <option value="anycategory">Seleccione una categoria</option>
 
                     </select>
                     </div>
@@ -45,6 +46,7 @@
                     <div class="form-group">
                         <label for="dificult">Dificultad</label>
                         <select class="form-control" id="dificult">
+                        <option value="anydificult">Seleccione una Dificultad</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -60,6 +62,7 @@
                     <div class="form-group">
                         <label for="type">Tipo</label>
                         <select class="form-control" id="type">
+                        <option value="anytype">Seleccione un tipo</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True/False</option>
 
@@ -67,15 +70,17 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Prueba</button>
-            <div class="row" id="questions-container">
+            <button type="submit" class="btn btn-success margin bottom-style" onclick="getFullResponse()">Generar Preguntas</button>
+            <div class="row margin " id="questions-container">
+            </div>
+            <div class="buttom-container " id="buttom-container">
 
             </div>
-
         </div>
     </form>
 
 </body>
 <script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
 </html>

@@ -6,26 +6,39 @@ function getQuestions() {
         .then((data) => printData(data))
 }
 
+let correctAnswer = [];
+let SeletectedAnswer = [];
+let count = 0;
 
 function printData(data) {
     let container = document.getElementById('questions-container');
+    let buttomContainer = document.getElementById("buttom-container")
     let html = ``;
-    data.results.forEach(element => {
+    correctAnswer = [];
+    data.results.forEach((element, index) => {
+        let aux = element.correct_answer;
+        correctAnswer.push(aux)
         html += `<div class="col-md-4">
-                                <div class="card">
+                                <div class="card margin">
                                     <div class="card-body">
                                         <p>${element.question}</p>
-                                        ${getAnswer(element)}
-
+                                        ${getAnswer(element,index)}
+                                       
                                     </div>
-                                </div>
+                                </div>  
                             </div>`
-
     });
+    botton = `<button type="button" onclick='getValidateAnswer()' class="btn btn-lg btn-primary bottom-style">Enviar Respuestas</button>`
+
     container.innerHTML = html
+    buttomContainer.innerHTML = botton
 }
 
-function getAnswer(element) {
+
+
+
+
+function getAnswer(element, index) {
     let correctAnswer = element.correct_answer;
     let incorrectAnswer = element.incorrect_answers;
     let truefalseAnswer = element.type;
@@ -33,49 +46,116 @@ function getAnswer(element) {
     let html = ``
     let answers = [];
     answers = [...incorrectAnswer]
-    answers.splice(Math.floor(Math.random() * correctAnswer.length + incorrectAnswer.length), 0, correctAnswer)
+    answers.splice(Math.floor(Math.random() * (answers.length)), 0, correctAnswer)
+    for (let i = 0; i < answers.length; i++) {
+        if (multChoice == "multiple") {
 
-    if (multChoice == "multiple") {
-        html = `
-    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[0]+1}" value="${answers[0]}">
-    <label class="form-check-label" for="${answers[0]+1}">${answers[0]}</label>
-  </div>
-  
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[1]+1}" value="${answers[1]}">
-    <label class="form-check-label" for="${answers[1]+1}">${answers[1]}</label>
-  </div>
-  
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[2]+1}" value="${answers[2]}">
-    <label class="form-check-label" for="${answers[2]+1}">${answers[2]}</label>
-  </div>
-  
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[3]+1}" value="${answers[3]}">
-    <label class="form-check-label" for="${answers[3]+1}">${answers[3]}</label>
-  </div>`
+            html += `
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}'>
+                <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
+            </div>`
+        }
+
+
+        if (truefalseAnswer == "boolean") {
+
+            html += `
+                <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}' >
+                    <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
+                </div>`
+        }
     }
 
-    if (truefalseAnswer == "boolean") {
-
-        html = `
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[0]+1}" value="${answers[0]}">
-    <label class="form-check-label" for="${answers[0]+1}">${answers[0]}</label>
-  </div>
-  
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="${answers[0]}" id="${answers[1]+1}" value="${answers[1]}">
-    <label class="form-check-label" for="${answers[1]+1}">${answers[1]}</label>
-  </div>
-            `
-
-    }
     return html
 
 }
+
+
+
+function validateInputsradio() {
+    let flat = false;
+    let radioButtons = document.querySelectorAll('input');
+    let SeletectedAnswer = []
+
+    radioButtons.forEach((input) => {
+        if (input.checked) {
+            SeletectedAnswer.push(input.value)
+        }
+    })
+
+    if (SeletectedAnswer.length == correctAnswer.length) {
+        flat = true
+    }
+
+
+    return flat
+}
+
+
+
+
+function getValidateAnswer() {
+
+    SeletectedAnswer = []
+    count = 0
+    let validador = validateInputsradio()
+    console.log(validador)
+    let radioButtons = document.querySelectorAll('input');
+
+    radioButtons.forEach((input) => {
+        if (input.checked) {
+            SeletectedAnswer.push(input.value)
+        }
+    })
+
+    for (let i = 0; i < correctAnswer.length; i++) {
+        if (SeletectedAnswer[i] == correctAnswer[i]) {
+            count += 1
+        }
+    }
+
+    if (validador) {
+        modalScore(count, correctAnswer.length)
+    } else {
+        alert("Verifica que hallas seleccionado todas las respustas antes de enviarlas!!")
+    }
+
+
+
+
+    console.log(SeletectedAnswer)
+    console.log(correctAnswer)
+
+
+}
+
+function questionNotExist() {
+    let container = document.getElementById('questions-container');
+    let html = ``
+    html = `<div class="alert alert-danger margin" role="alert">No Existen Preguntas para esta categoria</div>`
+
+    container.innerHTML = html
+}
+
+function fillInputs() {
+    let container = document.getElementById('questions-container');
+    let html = ``
+    html = `<div class="alert alert-danger margin" role="alert">Asegurate de que allas completado todos los inputs correctamente</div>`
+    container.innerHTML = html
+}
+
+function modalScore(score, amountQuestion) {
+    let container = document.getElementById('questions-container');
+    let html = ``
+    html = `<div class="alert alert-success" role="alert">
+    ${`Seleccionaste ` + score + ` respuestas correctas de ` + amountQuestion }
+  </div>`
+
+    container.innerHTML = html
+}
+
 
 
 function getCaterogies() {
@@ -87,7 +167,7 @@ function getCaterogies() {
 function printCategories(categories) {
     const categoryContainer = document.getElementById("category-container")
     categories.forEach((category) => {
-        categoryContainer.innerHTML += `<option value="${category.id}" >${category.name}</option>`
+        categoryContainer.innerHTML += `<option value='${category.id}' >${category.name}</option>`
     })
 
 }
@@ -101,7 +181,18 @@ function getFullResponse() {
 
     fetch(`https://opentdb.com/api.php?amount=${amountQuestions}&category=${category}&difficulty=${dificult}&type=${type}`)
         .then(response => response.json())
-        .then(data => printData(data))
+        .then(data => {
+            if (data.response_code == 1) {
+                questionNotExist()
+            }
+            if (data.response_code == 0) {
+                printData(data)
+            } else {
+                fillInputs()
+            }
+        })
+
+
 
 }
 
