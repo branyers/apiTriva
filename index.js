@@ -52,7 +52,7 @@ function getAnswer(element, index) {
 
             html += `
             <div class="form-check form-check-inline">
-                <input required class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}'>
+                <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}'>
                 <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
             </div>`
         }
@@ -62,7 +62,7 @@ function getAnswer(element, index) {
 
             html += `
                 <div class="form-check form-check-inline">
-                     <input required class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}' >
+                     <input class="form-check-input" type="radio" name='${answers[0]+index}' id='${answers[i]+index}' value='${answers[i]}' >
                     <label class="form-check-label" for='${answers[i]+index}'>${answers[i]}</label>
                 </div>`
         }
@@ -77,11 +77,18 @@ function getAnswer(element, index) {
 function validateInputsradio() {
     let flat = false;
     let radioButtons = document.querySelectorAll('input');
-    let radio = radioButtons.getAttribute("required");
+    let SeletectedAnswer = []
 
-    if (radio) {
+    radioButtons.forEach((input) => {
+        if (input.checked) {
+            SeletectedAnswer.push(input.value)
+        }
+    })
+
+    if (SeletectedAnswer.length == correctAnswer.length) {
         flat = true
     }
+
 
     return flat
 }
@@ -104,8 +111,9 @@ function getValidateAnswer() {
     })
 
     for (let i = 0; i < correctAnswer.length; i++) {
-        if (SeletectedAnswer[i] == correctAnswer[i]) {
+        if (SeletectedAnswer[i] === correctAnswer[i]) {
             count += 1
+            console.log(count)
         }
     }
 
@@ -115,12 +123,8 @@ function getValidateAnswer() {
         alert("Verifica que hallas seleccionado todas las respustas antes de enviarlas!!")
     }
 
-
-
-
     console.log(SeletectedAnswer)
     console.log(correctAnswer)
-
 
 }
 

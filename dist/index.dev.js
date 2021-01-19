@@ -49,11 +49,11 @@ function getAnswer(element, index) {
 
   for (var i = 0; i < answers.length; i++) {
     if (multChoice == "multiple") {
-      html += "\n            <div class=\"form-check form-check-inline\">\n                <input required class=\"form-check-input\" type=\"radio\" name='".concat(answers[0] + index, "' id='").concat(answers[i] + index, "' value='").concat(answers[i], "'>\n                <label class=\"form-check-label\" for='").concat(answers[i] + index, "'>").concat(answers[i], "</label>\n            </div>");
+      html += "\n            <div class=\"form-check form-check-inline\">\n                <input class=\"form-check-input\" type=\"radio\" name='".concat(answers[0] + index, "' id='").concat(answers[i] + index, "' value='").concat(answers[i], "'>\n                <label class=\"form-check-label\" for='").concat(answers[i] + index, "'>").concat(answers[i], "</label>\n            </div>");
     }
 
     if (truefalseAnswer == "boolean") {
-      html += "\n                <div class=\"form-check form-check-inline\">\n                     <input required class=\"form-check-input\" type=\"radio\" name='".concat(answers[0] + index, "' id='").concat(answers[i] + index, "' value='").concat(answers[i], "' >\n                    <label class=\"form-check-label\" for='").concat(answers[i] + index, "'>").concat(answers[i], "</label>\n                </div>");
+      html += "\n                <div class=\"form-check form-check-inline\">\n                     <input class=\"form-check-input\" type=\"radio\" name='".concat(answers[0] + index, "' id='").concat(answers[i] + index, "' value='").concat(answers[i], "' >\n                    <label class=\"form-check-label\" for='").concat(answers[i] + index, "'>").concat(answers[i], "</label>\n                </div>");
     }
   }
 
@@ -63,9 +63,14 @@ function getAnswer(element, index) {
 function validateInputsradio() {
   var flat = false;
   var radioButtons = document.querySelectorAll('input');
-  var radio = radioButtons.getAttribute("required");
+  var SeletectedAnswer = [];
+  radioButtons.forEach(function (input) {
+    if (input.checked) {
+      SeletectedAnswer.push(input.value);
+    }
+  });
 
-  if (radio) {
+  if (SeletectedAnswer.length == correctAnswer.length) {
     flat = true;
   }
 
@@ -85,8 +90,9 @@ function getValidateAnswer() {
   });
 
   for (var i = 0; i < correctAnswer.length; i++) {
-    if (SeletectedAnswer[i] == correctAnswer[i]) {
+    if (SeletectedAnswer[i] === correctAnswer[i]) {
       count += 1;
+      console.log(count);
     }
   }
 
